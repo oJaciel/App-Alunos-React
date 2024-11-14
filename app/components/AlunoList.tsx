@@ -1,5 +1,8 @@
 "use client";
-const AlunoList = () => {
+
+import { AlunoListProps } from "../types/types";
+
+const AlunoList = (props: AlunoListProps) => {
     return (
         <div className="w-full overflow-x-auto">
             <table className="min-w-full table-auto bg-white shadow-md">
@@ -12,21 +15,25 @@ const AlunoList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="border-t">
-                        <td className="px-4 py-2">João da Silva</td>
-                        <td className="px-4 py-2">jojo@email.com</td>
-                        <td className="px-4 py-2">29</td>
-                        <td className="px-4 py-2 text-center">
-                            <div className="flex justify-center space-x-2">
-                                <button className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
-                                    Editar
-                                </button>
-                                <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-                                    Excluir
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                    {props.alunos.map((aluno, index) => {
+                        return <tr className="border-t" key={aluno.id || index}>
+                            <td className="px-4 py-2">{aluno.name}</td>
+                            <td className="px-4 py-2">{aluno.email}</td>
+                            <td className="px-4 py-2">{aluno.age}</td>
+                            <td className="px-4 py-2 text-center">
+                                <div className="flex justify-center space-x-2">
+                                    <button onClick={() => props.onEdit(aluno)} className="bg-yellow-500 text-white px-4 py-2 rounded
+hover:bg-yellow-600">
+                                        Editar
+                                    </button>
+                                    <button onClick={() => props.onDelete(aluno.id || '')} className="bg-red-500 text-white px-4 py-2 rounded
+hover:bg-red-600">
+                                        Excluir
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    })}
                 </tbody>
             </table>
         </div>
