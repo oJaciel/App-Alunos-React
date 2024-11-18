@@ -19,6 +19,7 @@ export default function AlunosPage() {
     const getAlunos = async () => {
         const response = await axios.get("http://localhost:3000/api/students")
         console.log(response.data);
+        setAlunos(response.data);
     }
 
     // Salvar aluno (criar ou atualizar)
